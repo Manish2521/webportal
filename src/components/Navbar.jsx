@@ -1,14 +1,14 @@
-import { Fragment } from 'react';
+import { Fragment, useEffect, useState } from 'react';
 import React from 'react'; // Make sure to import React
 import { Disclosure, Menu, Transition } from '@headlessui/react';
-import { Link } from 'react-router-dom'; // Import Link from react-router-dom
+import { Link, useLocation } from 'react-router-dom'; // Import Link and useLocation
 import { Bars3Icon, XMarkIcon } from '@heroicons/react/24/outline';
 
 import logo from '../components/logo.jpg';
 import user from '../components/user.png';
 
-const navigation = [
-  { name: 'Home', href: '/', current: true },
+const initialNavigation = [
+  { name: 'Home', href: '/', current: false },
   { name: 'About', href: '/about', current: false },
   { name: 'Contact', href: '/contact', current: false },
   { name: 'Login', href: '/login', current: false }, // Updated href for Login button
@@ -19,6 +19,22 @@ function classNames(...classes) {
 }
 
 export default function Example() {
+  const location = useLocation();
+  const [navigation, setNavigation] = useState(initialNavigation);
+  const [currentPath, setCurrentPath] = useState('/');
+
+  useEffect(() => {
+    setCurrentPath(location.pathname);
+  }, [location]);
+
+  useEffect(() => {
+    const updatedNavigation = initialNavigation.map(item => ({
+      ...item,
+      current: item.href === currentPath
+    }));
+    setNavigation(updatedNavigation);
+  }, [currentPath]);
+
   return (
     <Disclosure as="nav" className="bg-black">
       {({ open }) => (
