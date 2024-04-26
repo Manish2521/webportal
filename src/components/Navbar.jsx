@@ -1,21 +1,21 @@
-import { Fragment } from 'react'
+import { Fragment } from 'react';
 import React from 'react'; // Make sure to import React
-import { Disclosure, Menu, Transition } from '@headlessui/react'
-import { Bars3Icon, BellIcon, XMarkIcon } from '@heroicons/react/24/outline'
+import { Disclosure, Menu, Transition } from '@headlessui/react';
+import { Link } from 'react-router-dom'; // Import Link from react-router-dom
+import { Bars3Icon, XMarkIcon } from '@heroicons/react/24/outline';
 
 import logo from '../components/logo.jpg';
 import user from '../components/user.png';
 
-
 const navigation = [
-  { name: 'Home', href: '#', current: true },
-  { name: 'About', href: '#', current: false },
-  { name: 'Contact', href: '#', current: false },
-  { name: 'Pricing', href: '#', current: false },
-]
+  { name: 'Home', href: '/', current: true },
+  { name: 'About', href: '/about', current: false },
+  { name: 'Contact', href: '/contact', current: false },
+  { name: 'Login', href: '/login', current: false }, // Updated href for Login button
+];
 
 function classNames(...classes) {
-  return classes.filter(Boolean).join(' ')
+  return classes.filter(Boolean).join(' ');
 }
 
 export default function Example() {
@@ -39,43 +39,38 @@ export default function Example() {
               </div>
               <div className="flex flex-1 items-center justify-center sm:items-stretch sm:justify-start">
                 <div className="flex flex-shrink-0 items-center">
-                  <img
-                    className="h-8 w-auto"
-                    src={logo}
-                    alt="Your Company"
-                  />
+                <Link to="/">
+                  <img className="h-8 w-auto" src={logo} alt="Your Company" />
+                </Link>
                 </div>
                 <div className="hidden sm:ml-6 sm:block">
                   <div className="flex space-x-4">
                     {navigation.map((item) => (
-                      <a
+                      <Link // Use Link component for navigation
                         key={item.name}
-                        href={item.href}
+                        to={item.href} // Use "to" instead of "href"
                         className={classNames(
-                          item.current ? 'bg-gray-900 text-white' : 'text-gray-300 hover:bg-gray-700 hover:text-white',
+                          item.current
+                            ? 'bg-gray-900 text-white'
+                            : 'text-gray-300 hover:bg-gray-700 hover:text-white',
                           'rounded-md px-3 py-2 text-sm font-medium'
                         )}
                         aria-current={item.current ? 'page' : undefined}
                       >
                         {item.name}
-                      </a>
+                      </Link>
                     ))}
                   </div>
                 </div>
               </div>
               <div className="absolute inset-y-0 right-0 flex items-center pr-2 sm:static sm:inset-auto sm:ml-6 sm:pr-0">
-
                 {/* Profile dropdown */}
                 <Menu as="div" className="relative ml-3">
                   <div>
                     <Menu.Button className="relative flex rounded-full bg-gray-800 text-sm focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800">
                       <span className="absolute -inset-1.5" />
                       <span className="sr-only">Open user menu</span>
-                      <img
-                        className="h-8 w-8 rounded-full"
-                        src={user}
-                        alt=""
-                      />
+                      <img className="h-8 w-8 rounded-full" src={user} alt="" />
                     </Menu.Button>
                   </div>
                   <Transition
@@ -146,5 +141,5 @@ export default function Example() {
         </>
       )}
     </Disclosure>
-  )
+  );
 }

@@ -1,33 +1,24 @@
-import Navbar from './components/Navbar';
-import UpperSection from './components/UpperSection';
-import HeroSection from './components/HeroSection';
-import Content from './components/Content';
-import Feature from './components/Feature';
-import CombinedSection from './components/CombinedSection';
-import CookiePopup from './components/CookiePopup';
-import Footer from './components/Footer';
+import React from 'react';
+import Home from "./components/Home";
+import Login from "./components/Login";
+import Contact from "./components/Contact";
+import About from "./components/About";
+import Layout from "./components/Layout"; // Import the Layout component
 
-
-
-
-
-
-import React from 'react'; // Make sure to import React
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 
 function App() {
   return (
-    <div>
-      <Navbar />
-      
-      <Feature />
-      <UpperSection />
-      <Content />
-      <HeroSection />
-      <CombinedSection />
-      <CookiePopup />
-      <Footer />
-    </div>
+    <Router>
+      <Routes>
+        <Route path="/" element={<Layout><Home /></Layout>} /> {/* Wrap Home component with Layout */}
+        <Route path="/login" element={<Layout><Login /></Layout>} /> {/* Wrap Login component with Layout */}
+        <Route path="/contact" element={<Layout><Contact /></Layout>} /> {/* Wrap Login component with Layout */}
+        <Route path="/about" element={<Layout><About /></Layout>} /> {/* Wrap Login component with Layout */}
+      </Routes>
+    </Router>
   );
 }
 
 export default App;
+
